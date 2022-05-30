@@ -1,0 +1,16 @@
+{
+    "hosting": {
+      "site": "webcall-mna",
+  
+
+          "public": "dist",
+          "ignore": [],
+          "rewrites": [
+            {
+              "source": "**",
+              "destination": "/index.html"
+            }
+          ]
+      
+    }
+  }

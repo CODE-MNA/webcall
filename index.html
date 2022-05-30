@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Calling App</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="lobbyScreen">
+            <div class="vertical-container">
+                <div>
+                <button class="primaryBtn" id="webcamButton"> Create a New Call</button>
+                </div>
+
+                <div>
+                    <input type="text" class="primary" id="callCode"><br><br>
+    
+                    <button class="primaryBtn" id="joincall"> Join Call with code</button>
+                </div>
+                
+                <div>
+                    <div id="outputConsole">
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+
+        </div>
+
+        <div class="callingScreen">
+
+
+            <h2 id="title">Calling</h2>
+
+
+            <section class="videos">
+                <div class="container">
+                    <h4>Your video</h4>
+                    <video id="thisVideo" autoplay playsinline></video>
+                </div>
+                <div class="container">
+                    <h4>Their video</h4>
+                    <video id="remoteVideo" autoplay playsinline></video>
+                </div>
+            </section>
+
+
+            <button class="primaryBtn" id="inviteButton">Copy Invite Link</button>
+
+
+
+            <button id="callButton">Answser</button>
+            <button id="endCall">EndCall </button>
+
+        </div>
+    </div>
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>
