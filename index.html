@@ -16,6 +16,13 @@
                 <h2>1 On 1 Calling App</h2>
 
             </header>
+
+            <div class="console" id="help">
+                You can start a call and only one other person can join your call at a time. 
+                Click start call to be the first person and send the invitation link to the other person. 
+                If u have a link/code sent by the other person you can use that to join their call.
+            </div>
+
             <div class="vertical-container">
                 <div>
                 <button class="primaryBtn" id="webcamButton"> Create a New Call</button>
@@ -28,7 +35,7 @@
                 </div>
                 
                 <div>
-                    <div id="outputConsole">
+                    <div class="console" id="outputConsole">
                         
                     </div>
                 </div>
@@ -41,17 +48,21 @@
         <div class="callingScreen">
 
 
-            <h2 id="title">Calling</h2>
+            <h2 id="title">Creating code...</h2>
 
 
             <section class="videos">
                 <div class="container">
                     <h4>Your video</h4>
                     <video id="thisVideo" autoplay playsinline></video>
+                    <button class="primaryBtn" id="yourMute">Mute</button>
+                    <button class="primaryBtn" id="yourCam">Close Camera</button>
                 </div>
                 <div class="container">
                     <h4>Their video</h4>
                     <video id="remoteVideo" autoplay playsinline></video>
+                
+
                 </div>
             </section>
 

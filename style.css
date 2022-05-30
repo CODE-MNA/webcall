@@ -3,11 +3,12 @@
   
   background: rgb(98,88,117);
   background: radial-gradient(circle, rgba(98,88,117,1) 18%, rgba(57,49,74,1) 62%, rgba(30,30,33,1) 100%);
-
+  font-size: calc(0.5rem + 0.7vw);
 }
 body{
   height: 100vh;
   margin: 0;
+
 }
 
 #app {
@@ -33,12 +34,14 @@ body{
 .videos>.container>video{
   border:0.5em solid black;
   width:500px;
-  height:400px;
+  height:300px;
   margin: 0;
   padding:0;
 }
 .callingScreen{
  display: none;
+ font-size:calc(1rem +1vw);
+ color:rgb(127, 179, 145);
 }
 
 
@@ -48,6 +51,25 @@ body{
 
 /* Lobby Screen  */
 
+.console{
+  color:rgb(204, 43, 15);
+  font-size:1.25rem;
+  text-shadow: 0 0 1px black;
+  box-shadow: 0 0 0.4em rgba(9, 9, 9, 0.377);
+  padding: 1em; 
+  background-color:rgb(186, 210, 218);
+  border:solid 6px rgb(45, 45, 45);
+}
+
+#help{
+  width: 20%;
+  position:absolute;
+  height:40%;
+  margin:2em;
+  font-size:calc(0.5rem + 1vw);
+  text-shadow: none;
+  background-color:#a1c9c9
+}
 header{
   background-color:rgb(122, 127, 128);
   padding:0.3em;
@@ -61,14 +83,9 @@ margin-bottom:3em;
 }
 
 
+
 #outputConsole{
-  color:rgb(204, 43, 15);
-  font-size:1.25rem;
-  text-shadow: 0 0 1px black;
   
-  padding: 1em; 
-  background-color:rgb(186, 210, 218);
-  border:solid 6px black;
   width: 95%;
   align-self: center;
 
@@ -111,7 +128,8 @@ margin-bottom:3em;
   height: 70%;
   gap:1em;
   width: 40%;
-  margin: 0 auto;
+  margin:  auto;
+  padding-left: 2em;
 }
 
 .vertical-container>div{
@@ -123,6 +141,11 @@ margin-bottom:3em;
   flex-direction:column;
   align-items:stretch;
 
+}
+
+.darkred{
+  color:rgb(134, 186, 106);
+  background-color: rgb(108, 75, 75);
 }
 .locked{
   background-color:#4b4b4b;

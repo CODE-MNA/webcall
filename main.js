@@ -52,7 +52,10 @@ const calls = collection(db,"calls")
 const sp = new URLSearchParams(document.location.search);
 
 let StartWebcam = async() =>{
-    localStream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
+    localStream = await navigator.mediaDevices.getUserMedia({video: {
+        width:"400px",
+        height:"500px"
+    }, audio: true});
     remoteStream = new MediaStream();
 
     //Variable to connectiion
@@ -206,6 +209,8 @@ webcamButton.onclick = async () => {
     code.then((data) => {
        navigator.clipboard.writeText(getURL() + "?"+"answer="+data )
        currCode = data;
+       $("h2#title").text(currCode);
+
     })
     
 }
@@ -236,6 +241,7 @@ let joincall = async ()=>{
 
     if (docSnap.exists()) {
     window.location = getURL() + "?"+"answer="+ callCode.value; 
+    $("#title").text(currCode);
   
 }else{
     $('#outputConsole').css('display', 'block').text( "Wrong code, please enter code correctly");
@@ -257,16 +263,53 @@ callInput.oninput= ()=>{
     }
 }
 $("#inviteButton").on("click", () =>  navigator.clipboard.writeText( getURL()+ "?"+"answer="+ currCode ))
+
+//Controls the
+$("#yourMute").on("click", ()=>ToggleMuteStream(localStream))
+$("#yourCam").on("click", ()=>ToggleCameraStream(localStream))
+
 // Nav handling
 var GoToApp = () =>{
     $(".lobbyScreen").css("display","none");
     $(".callingScreen").css("display","block");
+  
 }
 var GoToLobby = () =>{
     $(".lobbyScreen").css("display","block");
     $(".callingScreen").css("display","none");
 }
 
+var ToggleMuteStream = (stream) =>{
+    let muted = false;
+    stream.getAudioTracks().forEach(track => {
+        
+        track.enabled = !track.enabled;
+
+        muted = !track.enabled;
+        
+        
+    });
+    if(muted){
+        $("#yourMute").addClass("darkred").text("Unmute")
+    }else{
+        $("#yourMute").removeClass("darkred").text("Mute")
+
+    }
+}
+
+var ToggleCameraStream = (stream) =>{
+    let track = stream.getVideoTracks()[0];
+    track.enabled = !track.enabled;
+
+    if(!track.enabled){
+        $("#yourCam").addClass("darkred").text("Enable Camera")
+    }else{
+        $("#yourCam").removeClass("darkred").text("Close Camera")
+
+    }
+    console.log("toggled cam")
+
+}
 
 window.onbeforeunload = ()=>{
     if(currCode == ""){
@@ -282,4 +325,3 @@ window.onbeforeunload = ()=>{
 var getURL = function(){
     return window.location.protocol + '//' + window.location.host + window.location.pathname
 }
-//FIX answer being there when disconecting
