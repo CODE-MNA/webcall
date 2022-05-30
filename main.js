@@ -157,17 +157,22 @@ let CreateAnswer = async (code)=>{
   })
 }
 
-let endCall = () => {
+let endCall = async () => {
     //Use id to delete doc
+    
     pc.close();
-   window.location = window.location.href;
+ 
+
+    console.log(currCode)
+    await deleteDoc(doc(calls,currCode));
+    window.location = getURL();
+   
 } 
 
 //Initialisation
 var currCode = "";
 
 let init = async () => {
-    console.log("init called")
     console.log(sp.has("answer"))
     if(sp.has("answer")){
         const docRef = doc(calls, sp.get("answer"));
@@ -175,14 +180,15 @@ let init = async () => {
  
         //Link Answer
         if (docSnap.exists()) {
-            StartWebcam().then( () =>{
+            await StartWebcam()
+
                 console.log("creating answer");
-                CreateAnswer(docSnap.id)
+               await CreateAnswer(docSnap.id)
                 GoToApp();
                 currCode = docSnap.id;
 
                 
-            }).catch(err => console.log(err))
+           
         }else{
             
         }
@@ -192,13 +198,14 @@ let init = async () => {
 }
 
 
-webcamButton.onclick = () => {
-    StartWebcam();
-    GoToApp();
+webcamButton.onclick = async () => {
+    await StartWebcam();
+    await GoToApp();
     let code = CreateOffer();
 
     code.then((data) => {
-       navigator.clipboard.writeText(window.location.href + "?"+"answer="+data )
+       navigator.clipboard.writeText(getURL() + "?"+"answer="+data )
+       currCode = data;
     })
     
 }
@@ -207,7 +214,13 @@ webcamButton.onclick = () => {
 
 endButton.onclick = () => endCall();
 
-
+pc.onconnectionstatechange = () =>{
+    console.log(pc.connectionState)
+    if(pc.connectionState == "disconnected"){
+        endCall();
+      
+    }
+}
 
 
 
@@ -217,11 +230,12 @@ window.onload = () =>init();
 let joincall = async ()=>{
 
     //check if code exists
+    
     const docRef = doc(calls,callCode.value);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-    window.location = window.location.href + "?"+"answer="+ callCode.value; 
+    window.location = getURL() + "?"+"answer="+ callCode.value; 
   
 }else{
     $('#outputConsole').css('display', 'block').text( "Wrong code, please enter code correctly");
@@ -231,7 +245,18 @@ let joincall = async ()=>{
 
 $("#joincall").on("click", () => joincall());
 
-$("#inviteButton").on("click", () =>  navigator.clipboard.writeText(window.location.href + "?"+"TEST="+ currCode ))
+
+
+callInput.oninput= ()=>{
+    console.log("change")
+    if(callInput.value != ''){
+        $("#joincall").removeClass("locked");
+    }else{
+        $("#joincall").addClass("locked");
+
+    }
+}
+$("#inviteButton").on("click", () =>  navigator.clipboard.writeText( getURL()+ "?"+"answer="+ currCode ))
 // Nav handling
 var GoToApp = () =>{
     $(".lobbyScreen").css("display","none");
@@ -241,3 +266,20 @@ var GoToLobby = () =>{
     $(".lobbyScreen").css("display","block");
     $(".callingScreen").css("display","none");
 }
+
+
+window.onbeforeunload = ()=>{
+    if(currCode == ""){
+        return;
+    }
+
+    deleteDoc(doc(calls,currCode)).then(()=>{
+        console.log("Deleted")
+    });
+}
+
+
+var getURL = function(){
+    return window.location.protocol + '//' + window.location.host + window.location.pathname
+}
+//FIX answer being there when disconecting

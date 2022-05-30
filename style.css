@@ -5,6 +5,10 @@
   background: radial-gradient(circle, rgba(98,88,117,1) 18%, rgba(57,49,74,1) 62%, rgba(30,30,33,1) 100%);
 
 }
+body{
+  height: 100vh;
+  margin: 0;
+}
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -12,7 +16,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
  color: var(--primary-color);
-  margin-top: 60px;
+ height:100%;
 }
 
 /* Calling screen  */
@@ -30,7 +34,8 @@
   border:0.5em solid black;
   width:500px;
   height:400px;
-  
+  margin: 0;
+  padding:0;
 }
 .callingScreen{
  display: none;
@@ -42,9 +47,20 @@
 
 
 /* Lobby Screen  */
+
+header{
+  background-color:rgb(122, 127, 128);
+  padding:0.3em;
+  text-shadow: 0 0 1px rgb(255, 255, 255);
+box-shadow: 0 0 0.8em rgb(0, 0, 0);
+margin-bottom:3em;
+  font-size: 1.1rem;
+}
 .lobbyScreen{
   height: 70vh;
 }
+
+
 #outputConsole{
   color:rgb(204, 43, 15);
   font-size:1.25rem;
@@ -107,4 +123,8 @@
   flex-direction:column;
   align-items:stretch;
 
+}
+.locked{
+  background-color:#4b4b4b;
+  pointer-events: none;
 }
